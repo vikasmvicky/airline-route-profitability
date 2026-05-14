@@ -1,10 +1,31 @@
+import os
+import sys
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import sys
 
-sys.path.append("../src")
+# ---------------------------------
+# Dynamic Path Fix for Render
+# ---------------------------------
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
+
+SRC_PATH = os.path.join(
+    BASE_DIR,
+    "src"
+)
+
+sys.path.append(SRC_PATH)
+
+# ---------------------------------
+# Imports
+# ---------------------------------
 
 from predict import predict_profit
 from optimize import recommend_aircraft
@@ -195,7 +216,7 @@ if st.button("Recommend Best Aircraft"):
     st.dataframe(optimization_results)
 
     # Plot
-    fig, ax = plt.subplots(figsize=(10,6))
+    fig, ax = plt.subplots(figsize=(10, 6))
 
     sns.barplot(
         data=optimization_results,

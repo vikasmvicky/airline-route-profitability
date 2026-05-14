@@ -1,16 +1,41 @@
+import os
 import pandas as pd
 import numpy as np
 import joblib
 
 # ---------------------------------
-# Load Model and Encoders
+# Dynamic Model Paths
 # ---------------------------------
 
-MODEL_PATH = "../models/rf_model.pkl"
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.abspath(__file__)
+    )
+)
 
-ENCODER_PATH = "../models/label_encoders.pkl"
+MODELS_PATH = os.path.join(
+    BASE_DIR,
+    "models"
+)
 
-FEATURE_PATH = "../models/feature_names.pkl"
+MODEL_PATH = os.path.join(
+    MODELS_PATH,
+    "rf_model.pkl"
+)
+
+ENCODER_PATH = os.path.join(
+    MODELS_PATH,
+    "label_encoders.pkl"
+)
+
+FEATURE_PATH = os.path.join(
+    MODELS_PATH,
+    "feature_names.pkl"
+)
+
+# ---------------------------------
+# Load Model and Encoders
+# ---------------------------------
 
 model = joblib.load(MODEL_PATH)
 
@@ -225,6 +250,7 @@ def prepare_input_data(
         )
 
     # Match training feature order
+
     input_df = input_df[feature_names]
 
     return input_df
